@@ -49,7 +49,7 @@ interface DetectedObjectsType {
 const DetectObject = () => {
   const [files, setFiles] = useState<any>([]);
   const [result, setResult] = useState<any>(null);
-  const [images, setImages] = useState<[ImagesType]>();
+  const [images, setImages] = useState<ImagesType[]>([]);
 
   useEffect(() => {
     // @ts-ignore
@@ -76,8 +76,8 @@ const DetectObject = () => {
     const result = await handleDetectObject(
       encodedImage.replace("data:image/png;base64,", "")
     );
-    const tempImage = images;
-    tempImage?.push({
+    const tempImage = [...images];
+    tempImage.push({
       src: encodedImage,
       detectResult: result,
       create_date: new Date().toDateString(),
